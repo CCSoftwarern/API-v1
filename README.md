@@ -7,4 +7,5 @@ py -3 -m venv .venv
 pip install django djangorestframework
 django-admin startproject BackEnd .
 django-admin startapp Banco 
+pip install mssql-django 
 
