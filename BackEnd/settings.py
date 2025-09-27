@@ -81,6 +81,7 @@ WSGI_APPLICATION = 'BackEnd.wsgi.application'
 #     }
 # }
 
+# conexion a base de datos sql server
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
