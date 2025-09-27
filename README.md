@@ -8,4 +8,5 @@ pip install django djangorestframework
 django-admin startproject BackEnd .
 django-admin startapp Banco 
 pip install mssql-django 
+python manage.py inspectdb > banco/models.py (Esse comando inspeciona o db e cria os models de acordo com o banco criado)
 
