@@ -12,6 +12,9 @@ class MovimentacoesViewSet(viewsets.ModelViewSet):
     queryset = serializers.models.Movimentacoes.objects.all()
 
 class ExtratoViewSet(viewsets.GenericViewSet):
+    def get_queryset(self):
+        # não usamos queryset real
+        return []
     @action(detail=True, methods=['get'])
     def extrato(self, request, pk=None):
         try:
