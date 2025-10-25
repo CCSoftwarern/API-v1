@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from Banco.api import viewsets as banco_viewsets
+from Banco.views import CustomAuthToken
 route = routers.DefaultRouter()
 route.register(r'movimentacoes', banco_viewsets.MovimentacoesViewSet, basename='Movimentacoes')
 route.register(r'depositos', banco_viewsets.DepositarViewSet, basename='deposito')
@@ -15,4 +16,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(route.urls)),
     path('api/', include(route.urls)),
+    path('api/login/', CustomAuthToken.as_view(), name='api_login'),
 ]
