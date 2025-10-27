@@ -3,13 +3,37 @@ from Banco.api import serializers
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 from Banco.services import executar_sp_depositar, executar_sp_pagar, executar_sp_sacar, executar_sp_transferir, executar_vw_extrato 
-from .serializers import DepositoInSerializer, PagarSerializer, SacarSerializer, TransferirSerializer # Importa o Serializer de Input
+from .serializers import DepositoInSerializer, PagarSerializer, SacarSerializer, TransferirSerializer, UserSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+
+        # 🔑 Gera (ou recupera) o token para o novo usuário
+        token, created = Token.objects.get_or_create(user=user)
+
+        return Response({
+            "user": serializer.data,
+            "token": token.key
+        }, status=status.HTTP_201_CREATED)
+    
 
 class MovimentacoesViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.Movimentacoeserializer
     queryset = serializers.models.Movimentacoes.objects.all()
+
+class CorrentistasViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.CorrentistasSerializer
+    queryset = serializers.models.Correntistas.objects.all()
+    
 
 class ExtratoViewSet(viewsets.GenericViewSet):
     def get_queryset(self):

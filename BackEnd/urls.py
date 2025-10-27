@@ -11,6 +11,8 @@ route.register(r'pagamentos', banco_viewsets.PagarViewSet, basename='pagamento')
 route.register(r'transferencias', banco_viewsets.TransferirViewSet, basename='transferencia')
 route.register(r'saques', banco_viewsets.SacarViewSet, basename='saque')
 route.register(r'extratos', banco_viewsets.ExtratoViewSet, basename='extrato')
+route.register(r'correntistas', banco_viewsets.CorrentistasViewSet, basename='Correntistas')
+route.register(r'users', banco_viewsets.UserViewSet, basename='User')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

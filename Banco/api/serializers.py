@@ -1,9 +1,32 @@
 from rest_framework import serializers
 from Banco import models
+from django.contrib.auth.models import User
+
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'password']
+
+    def create(self, validated_data):
+        # Cria o usuário corretamente com senha criptografada
+        user = User.objects.create_user(
+            username=validated_data['username'],
+            email=validated_data.get('email', ''),
+            password=validated_data['password']
+        )
+        return user
 
 class Movimentacoeserializer(serializers.ModelSerializer):
     class Meta:
         model = models.Movimentacoes
+        fields = '__all__'
+
+class CorrentistasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Correntistas
         fields = '__all__'
 
 
