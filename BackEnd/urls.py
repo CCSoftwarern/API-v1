@@ -4,6 +4,7 @@ from django.urls import path, include
 from rest_framework import routers
 from Banco.api import viewsets as banco_viewsets
 from Banco.views import CustomAuthToken
+
 route = routers.DefaultRouter()
 route.register(r'movimentacoes', banco_viewsets.MovimentacoesViewSet, basename='Movimentacoes')
 route.register(r'depositos', banco_viewsets.DepositarViewSet, basename='deposito')
